@@ -5,6 +5,7 @@ const FOOTER_LINKS = {
   shop: [
     { label: "All Products", href: "/shop" },
     { label: "Best Sellers", href: "/collections/best-seller" },
+    { label: "Gift Sets", href: "/collections/gift-set" },
     { label: "About Us", href: "/about" },
     { label: "Contact Us", href: "/contact" },
   ],
@@ -16,14 +17,20 @@ const FOOTER_LINKS = {
   ],
 };
 
+const POLICIES = [
+  { label: "Refund policy", href: "https://www.mvlusciouslather.com/policies/refund-policy" },
+  { label: "Privacy policy", href: "https://www.mvlusciouslather.com/policies/privacy-policy" },
+  { label: "Terms of service", href: "https://www.mvlusciouslather.com/policies/terms-of-service" },
+];
+
 export function Footer() {
   return (
     <footer className="bg-charcoal text-ivory mt-24 grain">
-      <Container className="py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 lg:gap-12">
-        <div className="lg:col-span-1">
+      <Container className="py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-14 lg:gap-10">
+        <div className="lg:col-span-2">
           <p className="font-display text-2xl font-medium tracking-wide mb-1">MV</p>
           <p className="text-[10px] uppercase tracking-[0.38em] text-gold mb-6">Luscious Lather</p>
-          <p className="text-ivory/70 text-sm leading-relaxed max-w-xs">
+          <p className="text-ivory/70 text-sm leading-relaxed max-w-sm">
             Natural, handcrafted bath and body — 100% natural ingredients, free from harsh
             preservatives and detergents.
           </p>
@@ -61,11 +68,20 @@ export function Footer() {
           </ul>
         </div>
 
-        <div>
-          <h3 className="text-[10px] uppercase tracking-[0.32em] text-gold mb-5">Newsletter</h3>
-          <p className="text-ivory/60 text-sm mb-4 leading-relaxed">
-            Be first to know about new scents and seasonal collections.
+        <div className="lg:col-span-2">
+          <h3 className="text-[10px] uppercase tracking-[0.32em] text-gold mb-5">Contact</h3>
+          <p className="text-ivory/70 text-sm mb-1">
+            <a href="mailto:info@mvlusciouslather.com" className="hover:text-gold transition-colors">
+              info@mvlusciouslather.com
+            </a>
           </p>
+          <p className="text-ivory/70 text-sm mb-8">
+            <a href="https://www.mvlusciouslather.com/pages/contact-us" className="hover:text-gold transition-colors">
+              Contact form →
+            </a>
+          </p>
+
+          <h3 className="text-[10px] uppercase tracking-[0.32em] text-gold mb-5">Newsletter</h3>
           <form className="flex flex-col sm:flex-row gap-2" action="#" method="post">
             <input
               type="email"
@@ -102,10 +118,19 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-ivory/10 py-8 text-center">
-        <p className="text-ivory/40 text-[11px] tracking-[0.2em] uppercase">
-          © {new Date().getFullYear()} MV Luscious Lather
-        </p>
+      <div className="border-t border-ivory/10 py-8">
+        <Container className="flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] tracking-wide text-ivory/40 uppercase">
+          <p>© {new Date().getFullYear()} MV Luscious Lather</p>
+          <ul className="flex flex-wrap justify-center gap-6">
+            {POLICIES.map((p) => (
+              <li key={p.href}>
+                <a href={p.href} className="hover:text-gold transition-colors">
+                  {p.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Container>
       </div>
     </footer>
   );

@@ -85,6 +85,12 @@ export function Header() {
         </div>
 
         <nav className="hidden md:flex items-center justify-center gap-8 lg:gap-10 pb-5 -mt-1">
+          <Link
+            href="/shop"
+            className="link-underline text-[11px] uppercase tracking-[0.22em] text-charcoal-soft hover:text-gold whitespace-nowrap transition-colors font-medium"
+          >
+            Shop All
+          </Link>
           {NAV_CATEGORIES.map((cat) => (
             <Link
               key={cat.handle}

@@ -12,6 +12,9 @@
   --color-gold-light: #d4b896;
   --color-accent: #7d6b8a;
   --color-accent-soft: #9a8aa8;
+  --color-peach: #e8ddd4;
+  --color-blush: #d9ccc2;
+  --color-slate-announce: #8a9aab;
   --shadow-soft: 0 4px 24px -4px rgb(31 26 23 / 0.08);
   --shadow-card: 0 8px 40px -12px rgb(31 26 23 / 0.12);
   --shadow-elevated: 0 20px 60px -20px rgb(31 26 23 / 0.18);
@@ -77,6 +80,10 @@ body {
   .link-underline:hover::after {
     transform: scaleX(1);
     transform-origin: left;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 

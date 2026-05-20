@@ -1,24 +1,15 @@
 import { ContentPage } from "@/components/ContentPage";
+import { REVIEWS, REVIEW_SUMMARY } from "@/data/site";
 
 export const metadata = { title: "Testimonials" };
-
-const TESTIMONIALS = [
-  {
-    quote:
-      "The lavender vanilla soap is my favorite — gentle on my skin and smells amazing. You can tell it's made with care.",
-    author: "Happy customer",
-  },
-  {
-    quote:
-      "Finally found natural soaps that don't dry me out. MV Luscious Lather is a staple in our home.",
-    author: "Repeat buyer",
-  },
-];
 
 export default function TestimonialsPage() {
   return (
     <ContentPage title="Testimonials" eyebrow="Kind words">
-      {TESTIMONIALS.map((t) => (
+      <p className="text-muted text-sm -mt-4 mb-8">
+        {REVIEW_SUMMARY.average} ★ average from {REVIEW_SUMMARY.count}+ happy customers
+      </p>
+      {REVIEWS.map((t) => (
         <blockquote key={t.quote} className="border-l-2 border-gold pl-8 py-2">
           <p className="font-display text-xl md:text-2xl text-charcoal italic leading-relaxed">
             &ldquo;{t.quote}&rdquo;
