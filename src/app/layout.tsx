@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
+import { Analytics } from "@/components/Analytics";
+import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { SkipLink } from "@/components/SkipLink";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
+import { siteConfig } from "@/config/site";
 import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
@@ -20,15 +25,17 @@ const body = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "MV Luscious Lather | Natural Handcrafted Bath & Body",
-    template: "%s | MV Luscious Lather",
+    default: `${siteConfig.name} | Natural Handcrafted Bath & Body`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Natural, handcrafted bath and body products made with 100% natural ingredients. Soaps, scrubs, lotions, candles, and more from MV Luscious Lather.",
+  description: siteConfig.description,
+  icons: { icon: "/favicon.svg" },
   openGraph: {
-    siteName: "MV Luscious Lather",
+    siteName: siteConfig.name,
     type: "website",
+    locale: "en_US",
   },
 };
 
@@ -40,11 +47,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
+        <OrganizationJsonLd />
+        <Analytics />
         <CartProvider>
+          <SkipLink />
           <AnnouncementBar />
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
           <Footer />
+          <CartDrawer />
         </CartProvider>
       </body>
     </html>

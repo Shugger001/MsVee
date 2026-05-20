@@ -24,6 +24,8 @@ export type ShopifyProduct = {
   tags: string[];
   variants: ShopifyVariant[];
   images: ShopifyImage[];
+  published_at?: string;
+  created_at?: string;
 };
 
 export type ShopifyCollection = {
@@ -127,6 +129,56 @@ export function isOnSale(product: ShopifyProduct): boolean {
 export function shopifyCartUrl(variantIds: { id: number; quantity: number }[]): string {
   const items = variantIds.map((i) => `${i.id}:${i.quantity}`).join(",");
   return `https://${SHOPIFY_STORE}/cart/${items}`;
+}
+
+export function getProductPrice(product: ShopifyProduct): number {
+  return parseFloat(getPrimaryVariant(product).price);
+}
+
+export function isInStock(product: ShopifyProduct): boolean {
+  return getPrimaryVariant(product).available;
+}
+
+export async function getNewArrivals(limit = 8): Promise<ShopifyProduct[]> {
+  const all = await getAllProducts();
+  return [...all]
+    .sort((a, b) => {
+      const da = new Date(a.published_at ?? a.created_at ?? 0).getTime();
+      const db = new Date(b.published_at ?? b.created_at ?? 0).getTime();
+      return db - da;
+    })
+    .slice(0, limit);
+}
+
+export async function getRelatedProducts(
+  product: ShopifyProduct,
+  limit = 4,
+): Promise<ShopifyProduct[]> {
+  const all = await getAllProducts();
+  const type = product.product_type?.toLowerCase() ?? "";
+  const tags = new Set(product.tags.map((t) => t.toLowerCase()));
+
+  const score = (p: ShopifyProduct) => {
+    let s = 0;
+    if (p.product_type?.toLowerCase() === type && type) s += 3;
+    p.tags.forEach((t) => {
+      if (tags.has(t.toLowerCase())) s += 1;
+    });
+    return s;
+  };
+
+  return all
+    .filter((p) => p.id !== product.id)
+    .sort((a, b) => score(b) - score(a))
+    .slice(0, limit);
+}
+
+export function getUniqueProductTypes(products: ShopifyProduct[]): string[] {
+  const types = new Set<string>();
+  products.forEach((p) => {
+    if (p.product_type?.trim()) types.add(p.product_type.trim());
+  });
+  return [...types].sort();
 }
 
 export const NAV_CATEGORIES = [

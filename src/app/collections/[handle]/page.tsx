@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Container } from "@/components/ui/Container";
@@ -10,7 +11,10 @@ export async function generateMetadata({ params }: Props) {
   const { handle } = await params;
   const data = await getCollectionProducts(handle);
   if (!data) return { title: "Collection" };
-  return { title: data.collection.title };
+  return {
+    title: data.collection.title,
+    description: data.collection.description?.replace(/<[^>]*>/g, "").slice(0, 160),
+  };
 }
 
 export default async function CollectionPage({ params }: Props) {
@@ -22,10 +26,14 @@ export default async function CollectionPage({ params }: Props) {
 
   return (
     <Container className="py-12 md:py-20">
-      <SectionHeading
-        title={collection.title}
-        subtitle={`${products.length} products`}
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Shop", href: "/shop" },
+          { label: collection.title },
+        ]}
       />
+      <SectionHeading title={collection.title} subtitle={`${products.length} products`} />
       {collection.description && (
         <p
           className="text-warm mb-12 max-w-2xl leading-relaxed -mt-6"

@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { siteConfig } from "@/config/site";
 import { NAV_CATEGORIES } from "@/lib/shopify";
 import { useCart } from "@/lib/cart";
 
@@ -10,7 +12,7 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [query, setQuery] = useState("");
-  const { count } = useCart();
+  const { count, openCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -46,14 +48,26 @@ export function Header() {
 
           <Link
             href="/"
-            className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 text-center"
+            className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 text-center flex flex-col items-center"
           >
-            <span className="block font-display text-[1.35rem] md:text-[1.65rem] font-medium tracking-[0.18em] text-charcoal uppercase leading-none">
-              MV
-            </span>
-            <span className="block text-[9px] md:text-[10px] uppercase tracking-[0.42em] text-muted mt-1">
-              Luscious Lather
-            </span>
+            {siteConfig.logoUrl ? (
+              <Image
+                src={siteConfig.logoUrl}
+                alt={siteConfig.name}
+                width={120}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
+            ) : (
+              <>
+                <span className="block font-display text-[1.35rem] md:text-[1.65rem] font-medium tracking-[0.18em] text-charcoal uppercase leading-none">
+                  MV
+                </span>
+                <span className="block text-[9px] md:text-[10px] uppercase tracking-[0.42em] text-muted mt-1">
+                  Luscious Lather
+                </span>
+              </>
+            )}
           </Link>
 
           <div className="flex items-center gap-1 md:gap-3">
@@ -67,8 +81,9 @@ export function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.25} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
-            <Link
-              href="/cart"
+            <button
+              type="button"
+              onClick={openCart}
               className="relative p-2.5 text-charcoal hover:text-gold transition-colors"
               aria-label={`Cart, ${count} items`}
             >
@@ -80,18 +95,18 @@ export function Header() {
                   {count > 9 ? "9+" : count}
                 </span>
               )}
-            </Link>
+            </button>
           </div>
         </div>
 
-        <nav className="hidden md:flex items-center justify-center gap-8 lg:gap-10 pb-5 -mt-1">
+        <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-8 pb-5 -mt-1 flex-wrap">
           <Link
             href="/shop"
             className="link-underline text-[11px] uppercase tracking-[0.22em] text-charcoal-soft hover:text-gold whitespace-nowrap transition-colors font-medium"
           >
             Shop All
           </Link>
-          {NAV_CATEGORIES.map((cat) => (
+          {NAV_CATEGORIES.slice(0, 6).map((cat) => (
             <Link
               key={cat.handle}
               href={`/collections/${cat.handle}`}
@@ -100,6 +115,12 @@ export function Header() {
               {cat.label}
             </Link>
           ))}
+          <Link
+            href="/blog"
+            className="link-underline text-[11px] uppercase tracking-[0.22em] text-charcoal-soft hover:text-gold whitespace-nowrap transition-colors"
+          >
+            Journal
+          </Link>
         </nav>
       </div>
 
@@ -119,6 +140,9 @@ export function Header() {
 
       {menuOpen && (
         <nav className="md:hidden border-t border-linen py-6 px-5 space-y-1 max-h-[70vh] overflow-y-auto bg-ivory">
+          <Link href="/shop" className="block py-3 text-[11px] uppercase tracking-[0.22em] text-charcoal hover:text-gold font-medium" onClick={() => setMenuOpen(false)}>
+            Shop All
+          </Link>
           {NAV_CATEGORIES.map((cat) => (
             <Link
               key={cat.handle}
@@ -129,6 +153,9 @@ export function Header() {
               {cat.label}
             </Link>
           ))}
+          <Link href="/blog" className="block py-3 text-[11px] uppercase tracking-[0.22em] text-charcoal hover:text-gold" onClick={() => setMenuOpen(false)}>
+            Journal
+          </Link>
           <Link href="/about" className="block py-3 text-[11px] uppercase tracking-[0.22em] text-charcoal hover:text-gold" onClick={() => setMenuOpen(false)}>
             About
           </Link>

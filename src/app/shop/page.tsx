@@ -1,26 +1,23 @@
-import { ProductCard } from "@/components/ProductCard";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ShopCatalog } from "@/components/shop/ShopCatalog";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Container } from "@/components/ui/Container";
-import { getAllProducts } from "@/lib/shopify";
+import { getAllProducts, getUniqueProductTypes } from "@/lib/shopify";
 
 export const metadata = {
   title: "Shop All Products",
+  description: "Browse our full collection of natural handcrafted soaps, scrubs, lotions, and more.",
 };
 
 export default async function ShopPage() {
   const products = await getAllProducts();
+  const productTypes = getUniqueProductTypes(products);
 
   return (
     <Container className="py-12 md:py-20">
-      <SectionHeading
-        title="The Collection"
-        subtitle={`${products.length} handcrafted pieces`}
-      />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-8 md:gap-y-16">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Shop" }]} />
+      <SectionHeading title="The Collection" subtitle={`${products.length} handcrafted pieces`} />
+      <ShopCatalog products={products} productTypes={productTypes} />
     </Container>
   );
 }
