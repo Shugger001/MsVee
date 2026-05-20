@@ -17,11 +17,15 @@ const TESTIMONIALS = [
 
 export default function TestimonialsPage() {
   return (
-    <ContentPage title="Testimonials">
+    <ContentPage title="Testimonials" eyebrow="Kind words">
       {TESTIMONIALS.map((t) => (
-        <blockquote key={t.quote} className="border-l-4 border-plum pl-6 italic">
-          <p>&ldquo;{t.quote}&rdquo;</p>
-          <footer className="mt-3 text-sm not-italic text-espresso">— {t.author}</footer>
+        <blockquote key={t.quote} className="border-l-2 border-gold pl-8 py-2">
+          <p className="font-display text-xl md:text-2xl text-charcoal italic leading-relaxed">
+            &ldquo;{t.quote}&rdquo;
+          </p>
+          <footer className="mt-4 text-[11px] uppercase tracking-[0.24em] text-muted not-italic">
+            — {t.author}
+          </footer>
         </blockquote>
       ))}
     </ContentPage>

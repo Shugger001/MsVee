@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { Container } from "@/components/ui/Container";
 import {
   formatPrice,
   getPrimaryVariant,
@@ -27,9 +28,9 @@ export default async function ProductPage({ params }: Props) {
   const onSale = isOnSale(product);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-        <div className="relative aspect-square bg-cream-dark overflow-hidden">
+    <Container className="py-12 md:py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="relative aspect-[4/5] bg-ivory-deep overflow-hidden shadow-card">
           {product.images[0] ? (
             <Image
               src={product.images[0].src}
@@ -42,19 +43,19 @@ export default async function ProductPage({ params }: Props) {
           ) : null}
         </div>
 
-        <div>
-          <p className="text-sm uppercase tracking-widest text-plum mb-2">
-            {product.product_type || "MV Luscious Lather"}
+        <div className="lg:py-4">
+          <p className="text-[11px] uppercase tracking-[0.32em] text-gold mb-3">
+            {product.product_type || "Handcrafted"}
           </p>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-espresso font-medium mb-6">
+          <h1 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-charcoal font-medium leading-tight mb-6">
             {product.title}
           </h1>
-          <div className="flex items-baseline gap-3 mb-8">
-            <span className="text-2xl text-espresso font-medium">
+          <div className="flex items-baseline gap-4 mb-8 pb-8 border-b border-linen">
+            <span className="text-2xl text-charcoal font-medium tracking-wide">
               {formatPrice(variant.price)}
             </span>
             {onSale && variant.compare_at_price && (
-              <span className="text-espresso-light/60 line-through text-lg">
+              <span className="text-muted line-through text-lg">
                 {formatPrice(variant.compare_at_price)}
               </span>
             )}
@@ -62,21 +63,25 @@ export default async function ProductPage({ params }: Props) {
 
           <AddToCartButton product={product} />
 
+          <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-muted text-center">
+            Free shipping on orders $60+
+          </p>
+
           <div
-            className="mt-10 prose prose-espresso max-w-none text-espresso-light leading-relaxed [&_p]:mb-4"
+            className="mt-12 prose-luxury text-base"
             dangerouslySetInnerHTML={{ __html: product.body_html }}
           />
 
           {product.images.length > 1 && (
-            <div className="grid grid-cols-4 gap-3 mt-10">
+            <div className="grid grid-cols-4 gap-3 mt-12 pt-12 border-t border-linen">
               {product.images.slice(1, 5).map((img) => (
-                <div key={img.src} className="relative aspect-square bg-cream-dark">
+                <div key={img.src} className="relative aspect-square bg-ivory-deep overflow-hidden">
                   <Image
                     src={img.src}
                     alt={product.title}
                     fill
                     sizes="120px"
-                    className="object-cover"
+                    className="object-cover hover:opacity-90 transition-opacity"
                   />
                 </div>
               ))}
@@ -84,6 +89,6 @@ export default async function ProductPage({ params }: Props) {
           )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

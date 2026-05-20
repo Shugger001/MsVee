@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Container } from "@/components/ui/Container";
 import { getCollectionProducts } from "@/lib/shopify";
 
 type Props = { params: Promise<{ handle: string }> };
@@ -20,21 +21,22 @@ export default async function CollectionPage({ params }: Props) {
   const { collection, products } = data;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+    <Container className="py-12 md:py-20">
       <SectionHeading
-        title={`${collection.title} (${products.length})`}
+        title={collection.title}
+        subtitle={`${products.length} products`}
       />
       {collection.description && (
         <p
-          className="text-espresso-light mb-10 max-w-2xl"
+          className="text-warm mb-12 max-w-2xl leading-relaxed -mt-6"
           dangerouslySetInnerHTML={{ __html: collection.description }}
         />
       )}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-14">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-8 md:gap-y-16">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

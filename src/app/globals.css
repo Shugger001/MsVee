@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #faf6f0;
-  --color-cream-dark: #f0e8dc;
-  --color-espresso: #3d2b1f;
-  --color-espresso-light: #5c4033;
-  --color-plum: #6b4c7a;
-  --color-plum-light: #8b6b9a;
-  --color-gold: #c9a962;
+  --color-ivory: #f8f5ef;
+  --color-ivory-deep: #efe9df;
+  --color-linen: #e8e0d4;
+  --color-charcoal: #1f1a17;
+  --color-charcoal-soft: #3a322c;
+  --color-warm: #6b5d52;
+  --color-muted: #8a7d72;
+  --color-gold: #b8956b;
+  --color-gold-light: #d4b896;
+  --color-accent: #7d6b8a;
+  --color-accent-soft: #9a8aa8;
+  --shadow-soft: 0 4px 24px -4px rgb(31 26 23 / 0.08);
+  --shadow-card: 0 8px 40px -12px rgb(31 26 23 / 0.12);
+  --shadow-elevated: 0 20px 60px -20px rgb(31 26 23 / 0.18);
 }
 
 html {
@@ -16,10 +23,71 @@ html {
 
 body {
   font-family: var(--font-body), system-ui, sans-serif;
-  background-color: var(--color-cream);
-  color: var(--color-espresso);
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-gold) 35%, transparent);
+  color: var(--color-charcoal);
 }
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
+}
+
+/* Premium utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grain {
+    position: relative;
+  }
+
+  .grain::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Prose for product descriptions */
+.prose-luxury p {
+  margin-bottom: 1.25rem;
+  line-height: 1.75;
+  color: var(--color-warm);
+}
+
+.prose-luxury strong {
+  color: var(--color-charcoal);
+  font-weight: 500;
 }

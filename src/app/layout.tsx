@@ -10,6 +10,7 @@ const display = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 const body = Source_Sans_3({

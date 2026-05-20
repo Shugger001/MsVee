@@ -1,16 +1,15 @@
-import Link from "next/link";
+import { Container } from "@/components/ui/Container";
+import { ButtonLink } from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
-    <div className="max-w-xl mx-auto px-4 py-24 text-center">
-      <h1 className="font-display text-5xl text-espresso mb-4">404</h1>
-      <p className="text-espresso-light mb-8">This page could not be found.</p>
-      <Link
-        href="/"
-        className="inline-block px-8 py-3 bg-plum text-cream uppercase tracking-widest text-sm hover:bg-plum-light transition-colors"
-      >
-        Back to home
-      </Link>
-    </div>
+    <Container narrow className="py-24 text-center">
+      <p className="text-[11px] uppercase tracking-[0.32em] text-gold mb-4">404</p>
+      <h1 className="font-display text-5xl text-charcoal mb-4">Page not found</h1>
+      <p className="text-warm mb-10">The page you are looking for does not exist.</p>
+      <ButtonLink href="/" variant="primary">
+        Return home
+      </ButtonLink>
+    </Container>
   );
 }

@@ -1,5 +1,6 @@
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Container } from "@/components/ui/Container";
 import { getAllProducts } from "@/lib/shopify";
 
 export const metadata = {
@@ -10,13 +11,16 @@ export default async function ShopPage() {
   const products = await getAllProducts();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
-      <SectionHeading title={`All Products (${products.length})`} />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-14">
+    <Container className="py-12 md:py-20">
+      <SectionHeading
+        title="The Collection"
+        subtitle={`${products.length} handcrafted pieces`}
+      />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12 md:gap-x-8 md:gap-y-16">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

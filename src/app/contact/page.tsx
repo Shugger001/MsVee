@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -6,16 +8,17 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="max-w-xl mx-auto px-4 sm:px-6 py-12 md:py-20">
-      <h1 className="font-display text-4xl md:text-5xl text-espresso font-medium mb-4">
+    <Container narrow className="py-16 md:py-24">
+      <p className="text-[11px] uppercase tracking-[0.32em] text-gold mb-4">Get in touch</p>
+      <h1 className="font-display text-4xl md:text-5xl text-charcoal font-medium mb-4">
         Contact Us
       </h1>
-      <p className="text-espresso-light mb-10 leading-relaxed">
+      <p className="text-warm mb-12 leading-relaxed max-w-md">
         We would love to hear from you. Send us a message and we will respond as soon as we can.
       </p>
-      <form className="space-y-6" action="#" method="post">
+      <form className="space-y-8" action="#" method="post">
         <div>
-          <label htmlFor="name" className="block text-sm uppercase tracking-wider text-espresso mb-2">
+          <label htmlFor="name" className="block text-[11px] uppercase tracking-[0.24em] text-charcoal mb-3">
             Name
           </label>
           <input
@@ -23,11 +26,11 @@ export default function ContactPage() {
             name="name"
             type="text"
             required
-            className="w-full px-4 py-3 bg-white border border-cream-dark text-espresso focus:outline-none focus:ring-2 focus:ring-plum/30"
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-linen text-charcoal focus:outline-none focus:border-gold transition-colors"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm uppercase tracking-wider text-espresso mb-2">
+          <label htmlFor="email" className="block text-[11px] uppercase tracking-[0.24em] text-charcoal mb-3">
             Email
           </label>
           <input
@@ -35,11 +38,11 @@ export default function ContactPage() {
             name="email"
             type="email"
             required
-            className="w-full px-4 py-3 bg-white border border-cream-dark text-espresso focus:outline-none focus:ring-2 focus:ring-plum/30"
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-linen text-charcoal focus:outline-none focus:border-gold transition-colors"
           />
         </div>
         <div>
-          <label htmlFor="message" className="block text-sm uppercase tracking-wider text-espresso mb-2">
+          <label htmlFor="message" className="block text-[11px] uppercase tracking-[0.24em] text-charcoal mb-3">
             Message
           </label>
           <textarea
@@ -47,16 +50,13 @@ export default function ContactPage() {
             name="message"
             rows={5}
             required
-            className="w-full px-4 py-3 bg-white border border-cream-dark text-espresso focus:outline-none focus:ring-2 focus:ring-plum/30 resize-y"
+            className="w-full px-0 py-3 bg-transparent border-0 border-b border-linen text-charcoal focus:outline-none focus:border-gold transition-colors resize-y"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full py-4 bg-plum text-cream uppercase tracking-widest text-sm hover:bg-plum-light transition-colors"
-        >
+        <Button type="submit" variant="primary" size="lg" className="w-full md:w-auto">
           Send message
-        </button>
+        </Button>
       </form>
-    </div>
+    </Container>
   );
 }

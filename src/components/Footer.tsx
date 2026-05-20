@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Container } from "@/components/ui/Container";
 
 const FOOTER_LINKS = {
   shop: [
@@ -17,26 +18,25 @@ const FOOTER_LINKS = {
 
 export function Footer() {
   return (
-    <footer className="bg-espresso text-cream mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        <div>
-          <h2 className="font-display text-2xl font-semibold tracking-wide mb-4">
-            MV Luscious Lather
-          </h2>
-          <p className="text-cream/80 text-sm leading-relaxed">
-            Natural, handcrafted bath and body products made with 100% natural
-            ingredients — free from harsh preservatives and detergents.
+    <footer className="bg-charcoal text-ivory mt-24 grain">
+      <Container className="py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 lg:gap-12">
+        <div className="lg:col-span-1">
+          <p className="font-display text-2xl font-medium tracking-wide mb-1">MV</p>
+          <p className="text-[10px] uppercase tracking-[0.38em] text-gold mb-6">Luscious Lather</p>
+          <p className="text-ivory/70 text-sm leading-relaxed max-w-xs">
+            Natural, handcrafted bath and body — 100% natural ingredients, free from harsh
+            preservatives and detergents.
           </p>
         </div>
 
         <div>
-          <h3 className="text-sm uppercase tracking-widest mb-4 text-gold">Shop</h3>
-          <ul className="space-y-2">
+          <h3 className="text-[10px] uppercase tracking-[0.32em] text-gold mb-5">Shop</h3>
+          <ul className="space-y-3">
             {FOOTER_LINKS.shop.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-cream/80 hover:text-cream text-sm transition-colors"
+                  className="text-ivory/70 hover:text-gold text-sm transition-colors duration-300"
                 >
                   {link.label}
                 </Link>
@@ -46,13 +46,13 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm uppercase tracking-widest mb-4 text-gold">Helpful Links</h3>
-          <ul className="space-y-2">
+          <h3 className="text-[10px] uppercase tracking-[0.32em] text-gold mb-5">Information</h3>
+          <ul className="space-y-3">
             {FOOTER_LINKS.helpful.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-cream/80 hover:text-cream text-sm transition-colors"
+                  className="text-ivory/70 hover:text-gold text-sm transition-colors duration-300"
                 >
                   {link.label}
                 </Link>
@@ -62,31 +62,31 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm uppercase tracking-widest mb-4 text-gold">
-            Subscribe to our emails
-          </h3>
-          <form className="flex gap-2" action="#" method="post">
+          <h3 className="text-[10px] uppercase tracking-[0.32em] text-gold mb-5">Newsletter</h3>
+          <p className="text-ivory/60 text-sm mb-4 leading-relaxed">
+            Be first to know about new scents and seasonal collections.
+          </p>
+          <form className="flex flex-col sm:flex-row gap-2" action="#" method="post">
             <input
               type="email"
               name="email"
               required
-              placeholder="Email"
-              className="flex-1 px-3 py-2 bg-cream/10 border border-cream/20 text-cream placeholder:text-cream/50 text-sm focus:outline-none focus:border-gold"
+              placeholder="Your email"
+              className="flex-1 px-4 py-3 bg-ivory/5 border border-ivory/15 text-ivory placeholder:text-ivory/40 text-sm focus:outline-none focus:border-gold transition-colors"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-plum hover:bg-plum-light text-cream text-sm uppercase tracking-wider transition-colors"
+              className="px-6 py-3 bg-gold text-charcoal text-[11px] uppercase tracking-[0.22em] font-medium hover:bg-gold-light transition-colors"
             >
-              Subscribe
+              Join
             </button>
           </form>
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-6 mt-8">
             <a
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cream/70 hover:text-cream transition-colors"
-              aria-label="Facebook"
+              className="text-[11px] uppercase tracking-[0.22em] text-ivory/50 hover:text-gold transition-colors"
             >
               Facebook
             </a>
@@ -94,17 +94,18 @@ export function Footer() {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cream/70 hover:text-cream transition-colors"
-              aria-label="Instagram"
+              className="text-[11px] uppercase tracking-[0.22em] text-ivory/50 hover:text-gold transition-colors"
             >
               Instagram
             </a>
           </div>
         </div>
-      </div>
+      </Container>
 
-      <div className="border-t border-cream/10 py-6 text-center text-cream/60 text-xs tracking-wide">
-        © {new Date().getFullYear()}, MV Luscious Lather. All rights reserved.
+      <div className="border-t border-ivory/10 py-8 text-center">
+        <p className="text-ivory/40 text-[11px] tracking-[0.2em] uppercase">
+          © {new Date().getFullYear()} MV Luscious Lather
+        </p>
       </div>
     </footer>
   );

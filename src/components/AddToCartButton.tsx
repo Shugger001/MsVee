@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import type { ShopifyProduct } from "@/lib/shopify";
 import { getPrimaryVariant } from "@/lib/shopify";
+import { Button } from "@/components/ui/Button";
 
 export function AddToCartButton({ product }: { product: ShopifyProduct }) {
   const { addItem } = useCart();
@@ -13,19 +14,17 @@ export function AddToCartButton({ product }: { product: ShopifyProduct }) {
 
   if (!variant.available) {
     return (
-      <button
-        type="button"
-        disabled
-        className="w-full py-4 bg-espresso-light/30 text-espresso-light cursor-not-allowed uppercase tracking-widest text-sm"
-      >
+      <Button variant="secondary" className="w-full cursor-not-allowed opacity-50" disabled>
         Sold out
-      </button>
+      </Button>
     );
   }
 
   return (
-    <button
-      type="button"
+    <Button
+      variant="primary"
+      size="lg"
+      className="w-full"
       onClick={() => {
         addItem({
           variantId: variant.id,
@@ -36,11 +35,10 @@ export function AddToCartButton({ product }: { product: ShopifyProduct }) {
           price: parseFloat(variant.price),
         });
         setAdded(true);
-        setTimeout(() => setAdded(false), 2000);
+        setTimeout(() => setAdded(false), 2500);
       }}
-      className="w-full py-4 bg-plum hover:bg-plum-light text-cream uppercase tracking-widest text-sm transition-colors"
     >
-      {added ? "Added to cart ✓" : "Add to cart"}
-    </button>
+      {added ? "Added to bag ✓" : "Add to bag"}
+    </Button>
   );
 }
